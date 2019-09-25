@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Cliente extends Model
 {
@@ -11,25 +12,8 @@ class Cliente extends Model
     protected $table = 'cliente';
     protected $fillable = ['nome'];
 
-    
-    public function documentos()
+    public function compras()
     {
-        return $this->hasMany('App\Documento');
+        return $this->hasMany('App\Compra');
     }
-    /*
-    public function vendas()
-    {
-        return $this->hasMany('App\Venda');
-    }
-
-    public function getRg()
-    {
-        return $this->documentos()->where('tipo', 'rg')->first();
-    }
-
-    public function getCpf()
-    {
-        return $this->documentos()->where('tipo', 'cpf')->first();
-    }
-    */
 }
