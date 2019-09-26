@@ -7,5 +7,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Produto extends Model
 {
-    //
+    use SoftDeletes;
+    
+    protected $table = 'produto';
+    protected $fillable = ['nome', 'valor'];
+
+    public function compras()
+    {
+        //modelo referenciado, tabela MxN, chaves estrangeiras da tabela MxN -> valor extra na tabela MxN
+        return $this->belongsToMany('App\Compra', 'produto_has_compra', 'produto_id', 'compra_id')->withPivot('quantidade');
+    }
 }

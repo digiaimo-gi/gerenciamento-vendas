@@ -16,4 +16,10 @@ class Compra extends Model
     {
         return $this->belongsTo('App\Cliente');
     }
+
+    public function produto()
+    {
+        //modelo referenciado, tabela MxN, chaves estrangeiras da tabela MxN -> valor extra na tabela MxN
+        return $this->belongsToMany('App\Produto', 'produto_has_compra', 'produto_id', 'compra_id')->withPivot('quantidade');
+    }
 }

@@ -12,7 +12,7 @@
 
         <div class="form-group">
             <label><b>Nome</b></label>
-            <input  type="text" value="{{old('cliente.nome', $data['cliente'] ? $data['cliente']->nome : '')}}" name="cliente[nome]" class="form-control">
+            <input type="text" value="{{old('cliente.nome', $data['cliente'] ? $data['cliente']->nome : '')}}" name="cliente[nome]" class="form-control">
             <span>{{$errors->first('cliente.nome')}}</span>
         </div>
 

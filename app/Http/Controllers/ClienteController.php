@@ -46,7 +46,17 @@ class ClienteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $cliente = Cliente::create([
+                'nome' => $request['cliente']['nome']
+            ]);
+            DB::commit();
+            return redirect('clientes')->with('success', 'Cliente cadastrado com sucesso!');
+        } catch(Exception $e) {
+            DB::rollback();
+            return redirect('clientes')->with('error', 'Erro! Cliente não cadastrado!');
+        }
     }
 
     /**
@@ -68,7 +78,13 @@ class ClienteController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cliente = Cliente::findOrFail($id);
+        $data = [
+            'cliente' => $cliente,
+            'url'     => 'clientes/'.$id,
+            'method'  => 'PUT',
+        ];
+        return view('clientes.form', compact('data'));
     }
 
     /**
@@ -80,7 +96,18 @@ class ClienteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cliente = Cliente::findOrFail($id);
+        DB::beginTransaction();
+        try {
+            $cliente->update([
+                'nome' => $request['cliente']['nome']
+            ]);
+            DB::commit();
+            return redirect('clientes')->with('success', 'Cliente atualizado com sucesso!');
+        } catch(Exception $e) {
+            DB::rollback();
+            return redirect('clientes')->with('error', 'Erro ao atualizar cliente!');
+        }
     }
 
     /**
@@ -91,6 +118,13 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $cliente = Cliente::withTrashed()->findOrFail($id);
+        if($cliente->trashed()) {
+            $cliente->restore();
+            return back()->with('success', 'Cliente reativado com sucesso!');
+        } else {
+            $cliente->delete();
+            return back()->with('success', 'Cliente desativado com sucesso!');
+        }
     }
 }

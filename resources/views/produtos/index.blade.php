@@ -1,18 +1,18 @@
 @extends('layouts.app')
 @section('content')
 <div class='card'>
-    <div class='card-header'>Cliente</div>
+    <div class='card-header'>Produto</div>
     <div class='card-body'>
 
 
         <div class="col-md-12">
             <div class="text-right">
-                <a href="{{url('clientes/create')}}" class="btn btn-success">Novo Cliente</a>
+                <a href="{{url('produtos/create')}}" class="btn btn-success">Novo Produto</a>
             </div>
         </div>
         <div class="col-md-12 mt-4">
             <div class="card">
-                <div class="card-header">Clientes Ativos</div>
+                <div class="card-header">Produtos Ativos</div>
                 <div class="card-body">
                 <table class="table">
                         <thead>
@@ -22,13 +22,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($data['clientesAtivos'] as $cliente)
+                            @foreach($data['produtosAtivos'] as $produto)
                                 <tr>
-                                    <td>{{$cliente->nome}}</td>
+                                    <td>{{$produto->nome}}</td>
                                     <td>
-                                        <a href="{{url('clientes/'. $cliente->id. '/edit')}}" class="btn btn-warning">Editar</a></td>
+                                        <a href="{{url('produtos/'. $produto->id. '/edit')}}" class="btn btn-warning">Editar</a></td>
                                     <td>
-                                        <form action="clientes/ {{$cliente->id}}" method="POST">
+                                        <form action="produtos/ {{$produto->id}}" method="POST">
                                             @method("DELETE")
                                             {{csrf_field()}}
                                             <input type="submit" class="btn btn-danger" value="Desativar"/>
@@ -42,7 +42,7 @@
             </div>
             <br>
             <div class="card">
-                    <div class="card-header">Clientes Inativos</div>
+                    <div class="card-header">Produtos Inativos</div>
                     <div class="card-body">
                     <table class="table">
                             <thead>
@@ -52,11 +52,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($data['clientesInativos'] as $cliente)
+                                @foreach($data['produtosInativos'] as $produto)
                                     <tr>
-                                        <td>{{$cliente->nome}}</td>
+                                        <td>{{$produto->nome}}</td>
                                         <td>
-                                            <form action="clientes/ {{$cliente->id}}" method="POST">
+                                            <form action="produtos/ {{$produto->id}}" method="POST">
                                                 @method("DELETE")
                                                 {{csrf_field()}}
                                                 <input type="submit" class="btn btn-danger" value="Reativar"/>
