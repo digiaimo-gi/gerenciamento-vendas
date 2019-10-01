@@ -46,7 +46,18 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $produto = Produto::create([
+                'nome'  => $request['produto']['nome'],
+                'valor' => $request['produto']['valor']
+            ]);
+            DB::commit();
+            return redirect('produtos')->with('success', 'Produto cadastrado com sucesso!');
+        } catch(Exception $e) {
+            DB::rollback();
+            return redirect('produtos')->with('error', 'Erro! Produto não cadastrado!');
+        }
     }
 
     /**
@@ -68,7 +79,13 @@ class ProdutoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $produto = Produto::findOrFail($id);
+        $data = [
+            'produto' => $produto,
+            'url'     => 'produtos/'.$id,
+            'method'  => 'PUT',
+        ];
+        return view('produtos.form', compact('data'));
     }
 
     /**
@@ -80,7 +97,19 @@ class ProdutoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $produto = Produto::findOrFail($id);
+        DB::beginTransaction();
+        try {
+            $produto->update([
+                'nome'  => $request['produto']['nome'],
+                'valor' => $request['produto']['valor']
+            ]);
+            DB::commit();
+            return redirect('produtos')->with('success', 'Produto atualizado com sucesso!');
+        } catch(Exception $e) {
+            DB::rollback();
+            return redirect('produtos')->with('error', 'Erro ao atualizar produto!');
+        }
     }
 
     /**
@@ -91,6 +120,13 @@ class ProdutoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $produto = Produto::withTrashed()->findOrFail($id);
+        if($produto->trashed()) {
+            $produto->restore();
+            return back()->with('success', 'Produto reativado com sucesso!');
+        } else {
+            $produto->delete();
+            return back()->with('success', 'Produto desativado com sucesso!');
+        }
     }
 }

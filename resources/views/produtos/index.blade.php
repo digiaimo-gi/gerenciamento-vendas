@@ -18,6 +18,7 @@
                         <thead>
                             <tr>
                                 <th>Nome</th>
+                                <th>Valor</th>
                                 <th colspan='2'>Ações</th>
                             </tr>
                         </thead>
@@ -25,6 +26,7 @@
                             @foreach($data['produtosAtivos'] as $produto)
                                 <tr>
                                     <td>{{$produto->nome}}</td>
+                                    <td>{{$produto->valor}}</td>
                                     <td>
                                         <a href="{{url('produtos/'. $produto->id. '/edit')}}" class="btn btn-warning">Editar</a></td>
                                     <td>
@@ -48,6 +50,7 @@
                             <thead>
                                 <tr>
                                     <th>Nome</th>
+                                    <th>Valor</th>
                                     <th colspan='2'>Ações</th>
                                 </tr>
                             </thead>
@@ -55,6 +58,7 @@
                                 @foreach($data['produtosInativos'] as $produto)
                                     <tr>
                                         <td>{{$produto->nome}}</td>
+                                        <td>{{$produto->valor}}</td>
                                         <td>
                                             <form action="produtos/ {{$produto->id}}" method="POST">
                                                 @method("DELETE")

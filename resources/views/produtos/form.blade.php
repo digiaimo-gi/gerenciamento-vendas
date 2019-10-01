@@ -16,8 +16,8 @@
             <span>{{$errors->first('produto.nome')}}</span>
 
             <label><b>Valor</b></label>
-            <input type="text" value="{{old('produto.nome', $data['produto'] ? $data['produto']->nome : '')}}" name="produto[nome]" class="form-control">
-            <span>{{$errors->first('produto.nome')}}</span>
+            <input type="text" value="{{old('produto.valor', $data['produto'] ? $data['produto']->valor : '')}}" name="produto[valor]" class="form-control">
+            <span>{{$errors->first('produto.valor')}}</span>
         </div>
 
         <input type="submit" value="{{$data['produto'] ? 'Atualizar' : 'Salvar'}}" class="btn btn-success">
