@@ -18,6 +18,7 @@ class CompraController extends Controller
         $data = [
             'compra' => Compra::findOrFail($id),
         ];
+        dd($data['compra']);
         return view('compras.index', compact('data'));
     }
 

@@ -24,7 +24,7 @@
                         <tbody>
                         @foreach($data['compra'] as $compra)
                                 <tr>
-                                <td>{{$compra->data}}</td>
+                                    <td>{{$compra->data}}</td>
                                     @foreach($compra->produto as $produto)
                                         <td>{{$produto->nome}}</td>
                                     @endforeach
