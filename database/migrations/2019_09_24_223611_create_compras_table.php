@@ -16,6 +16,7 @@ class CreateComprasTable extends Migration
         Schema::create('compra', function (Blueprint $table) {
             $table->increments('id');
             $table->date('data');
+            $table->integer('cliente_id')->unsigned()->index('fk_compra_cliente_id_idx');
             $table->timestamps();
             $table->softDeletes();
         });

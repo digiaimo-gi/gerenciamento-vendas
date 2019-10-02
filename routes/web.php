@@ -16,5 +16,6 @@ Route::get('/', function () {
 });
 
 Route::resource('clientes', 'ClienteController');
-Route::resource('compras', 'CompraController');
 Route::resource('produtos', 'ProdutoController');
+
+Route::get('compras/{id}', 'CompraController@index');
